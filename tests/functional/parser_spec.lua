@@ -371,7 +371,7 @@ describe("requests", function()
 
         result = parser.parse() or {}
         assert.has_properties(result, {
-          body_computed = '------WebKitFormBoundary\r\nContent-Disposition: form-data; name="x"\r\n\r\n0\r\n------WebKitFormBoundary\r\nContent-Disposition: form-data; name="y"\r\n\r\n1.4333333333333333\r\n------WebKitFormBoundary--',
+          body_computed = '------WebKitFormBoundary\r\nContent-Disposition: form-data; name="x"\r\n\r\n0\r\n------WebKitFormBoundary\r\nContent-Disposition: form-data; name="y"\r\n\r\n1.4333333333333333\r\n------WebKitFormBoundary--\r\n',
           headers = {
             ["Content-Type"] = "multipart/form-data; boundary=----WebKitFormBoundary",
           },

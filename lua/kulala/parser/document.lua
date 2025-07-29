@@ -497,8 +497,17 @@ function parse_document(lines, path)
     end
 
     if request.body then
-      request.body = vim.trim(request.body)
-      request.body_display = vim.trim(request.body_display)
+      local _, content_type = PARSER_UTILS.get_header(request.headers, "content-type")
+      content_type = content_type or ""
+      
+      if content_type:find("^multipart/form%-data") then
+        -- For multipart/form-data, ensure it ends with exactly one CRLF as per RFC2046
+        request.body = request.body:gsub("%s+$", "") .. "\r\n"
+        request.body_display = request.body_display:gsub("%s+$", "") .. "\r\n"
+      else
+        request.body = vim.trim(request.body)
+        request.body_display = vim.trim(request.body_display)
+      end
       infer_headers_from_body(request)
     end
 
